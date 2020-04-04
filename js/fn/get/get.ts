@@ -1,7 +1,7 @@
 const reg = /(\w+)\[(\d+)\]/
 type nameType = string | Array<string>
 
-const _get = (obj: object, names: nameType) => {
+const _get = (obj: any, names: nameType) => {
   let keys = Array.isArray(names) ? names : names.split('.')
 
   return keys.reduce((prev, next) => {
@@ -14,6 +14,6 @@ const _get = (obj: object, names: nameType) => {
   }, obj)
 }
 
-const get = (obj: object, names: nameType, defaultValue?: any) => _get(obj, names) || defaultValue
+const get = (obj: any, names: nameType, defaultValue?: any) => _get(obj, names) || defaultValue
 
 export default get
