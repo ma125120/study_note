@@ -1,6 +1,6 @@
 # [class-transform](https://github.com/typestack/class-transformer)
-[demo](https://github.com/ma125120/study_note/blob/master/js/practice/AOP/example.js)
 
+## [demo](https://github.com/ma125120/study_note/blob/master/js/practice/AOP/example.ts) 我的一些个人理解
 <style>
   summary {
     cursor: pointer;
