@@ -6,7 +6,7 @@ install:
 
 jobs:
   exclude:
-    - if: branch = dev
+    # - if: branch = dev
 script:
  - npm run test
 deploy:
