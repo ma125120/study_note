@@ -3,6 +3,10 @@ node_js :
  - 14
 install:
  - npm install
+
+jobs:
+  exclude:
+    - if: branch = dev
 script:
  - npm run test
 deploy:
