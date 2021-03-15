@@ -3,6 +3,12 @@ node_js :
  - 14
 install:
  - npm install
+
+# https://docs.travis-ci.com/user/conditions-v1
+jobs:
+  exclude:
+    - if: branch = dev \
+      commit_message !~ /(no-deploy)/
 script:
  - npm run test
 deploy:
