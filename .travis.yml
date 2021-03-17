@@ -7,10 +7,20 @@ install:
 # https://docs.travis-ci.com/user/conditions-v1
 jobs:
   exclude:
-    - if: branch = dev \
-      commit_message !~ /(no-deploy)/
+    - if: branch = dev OR commit_message =~ /(no-ci)/
+
 script:
  - npm run test
+
+after_script:
+  - touch test.txt
+  - echo "dsa" >> test.txt
+  - git config user.name "用户名，需要替换"
+  - git config user.email "用户邮箱，需要替换"
+  - git add .
+  - git commit -m "test ci"
+  - git push --force --quiet "https://${GITHUB_TOKEN}@github.com/${TRAVIS_REPO_SLUG}.git" "$TRAVIS_BRANCH"
+
 deploy:
   provider: pages
   skip_cleanup: true
