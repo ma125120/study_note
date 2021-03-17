@@ -13,17 +13,28 @@ script:
  - npm run test
 
 after_script:
+  # - git config user.name "user.name"
+  # - git config user.email "user.email"
+  - tar -zcvf /tmp/html.tar.gz . --exclude="node_modules"
+  - mkdir -p ~/$TRAVIS_REPO_SLUG
+  - cd ~/$TRAVIS_REPO_SLUG
+  - tar -xvf /tmp/html.tar.gz -C ./
+  - chmod 777 ./
+  
+  # - git clone --branch $TRAVIS_BRANCH https://ma125120:${GITHUB_TOKEN}@github.com/${TRAVIS_REPO_SLUG}.git demo
+  - git remote set-url origin https://ma125120:${GITHUB_TOKEN}@github.com/${TRAVIS_REPO_SLUG}.git
+  - git remote -v
   - touch test.txt
-  - echo "dsa" >> test.txt
-  - git config user.name "用户名，需要替换"
-  - git config user.email "用户邮箱，需要替换"
+  - echo "dsa$TRAVIS_BRANCH" >> test.txt
+  - ls -al
   - git add .
-  - git commit -m "test ci"
-  - git push --force --quiet "https://${GITHUB_TOKEN}@github.com/${TRAVIS_REPO_SLUG}.git" "$TRAVIS_BRANCH"
+  - git commit -m "测试 ci"
+  - echo "git push https://ma125120:${GITHUB_TOKEN}@github.com/${TRAVIS_REPO_SLUG}.git $TRAVIS_BRANCH"
+  - git push origin $TRAVIS_BRANCH
 
 deploy:
   provider: pages
-  skip_cleanup: true
-  github_token: $GITHUB_TOKEN # Set in travis-ci.org dashboard
+  cleanup: true
+  token: $GITHUB_TOKEN # Set in travis-ci.org dashboard
   on:
     branch: master
