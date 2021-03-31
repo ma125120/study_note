@@ -1,36 +1,27 @@
-type ValueType = string[][]
-
 export function isValidSudoku(board: string[][]): boolean {
-	const column: ValueType = []
-	const row: ValueType = []
-	const square: ValueType = []
+	const column: number[][] = []
+	const row: number[][] = []
+	const square: number[][] = []
 
-  const checkDuplicate = (str, x, y) {
-    // 检查行
-    for (let i = 0; i < x; i++) {
-      if (board[x][i] === str) return true
-    }
-
-    // 检查列
-    for (let j = 0; j < y; j++) {
-      if (board[j][y] === str) return true
-    }
-
-    // 检查方列
-    const num = Math.floor(x / 3) + 1
-
-    return false
-  }
 	for (let i = 0; i < board.length; i++) {
 		for (let j = 0; j < board[i].length; j++) {
-      const str = board[i][j]
-      if (str !== '.') {
+			const str: any = board[i][j]
+			if (str !== '.') {
+				column[i] = column[i] || []
+				column[i][str] = (column[i][str] || 0) + 1
+				if (column[i][str] > 1) return false
 
-      }
-    }
+				row[j] = row[j] || []
+				row[j][str] = (row[j][str] || 0) + 1
+				if (row[j][str] > 1) return false
+
+				const s = parseInt(i / 3 + '') * 3 + parseInt(j / 3 + '')
+				square[s] = square[s] || []
+				square[s][str] = (square[s][str] || 0) + 1
+				if (square[s][str] > 1) return false
+			}
+		}
 	}
-}
 
-function checkDuplicate() {
-
+	return true
 }
